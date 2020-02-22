@@ -1,0 +1,21 @@
+Content-Transfer-Encoding: 7bit
+From: Wiktor Kwapisiewicz <wiktor@metacode.biz>
+Content-Type: multipart/encrypted;
+ protocol="application/pgp-encrypted";
+ boundary="----------=_1580669506-25512-116"
+MIME-Version: 1.0
+
+This is a multi-part message in MIME format...
+
+------------=_1580669506-25512-116
+Content-Type: application/pgp-encrypted; name="signedkey.msg"
+Content-Disposition: attachment; filename="signedkey.msg"
+Content-Transfer-Encoding: 7bit
+
+Version: 1
+
+------------=_1580669506-25512-116
+Content-Type: application/octet-stream; name="msg.asc"
+Content-Disposition: inline; filename="msg.asc"
+Content-Transfer-Encoding: 7bit
+

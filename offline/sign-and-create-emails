@@ -1,0 +1,40 @@
+#!/bin/bash
+
+# Customize this URL to your own policy or temove --cert-policy-url calls
+CERT_POLICY_URL="https://metacode.biz/openpgp/air-signer#policy"
+
+# Customize date of signing so all signatures have the same date
+# also: a privacy measure
+DATE_OF_SIGNING=20200202T020202
+
+while read line; do
+
+echo "$line"
+
+ID=${line:0:5}
+FP=${line:6:40}
+NM=${line:47}
+
+gpg --faked-system-time $DATE_OF_SIGNING --quiet --fast-import "$FP".gpg
+
+LV=0
+
+# If someone has a comment reduce certification level
+# You may not need that
+if [[ "$NM" == *"("* ]]; then
+	LV=1
+fi
+
+gpg --faked-system-time $DATE_OF_SIGNING --ignore-time-conflict --quiet --default-cert-level "$LV" --cert-policy-url "$CERT_POLICY_URL" --quick-sign-key "$FP" "$NM"
+
+FN="${ID}.eml"
+EM=$(echo $NM | grep -Eo '<[^>]+>')
+
+echo "To: $EM" > $FN
+echo "Subject: Your signed OpenPGP key ($ID)" >> $FN
+
+gpg --faked-system-time $DATE_OF_SIGNING --ignore-time-conflict --export-options export-clean --export-filter keep-uid=uid="$NM" --export --armor "$FP" | cat inner-1.eml - inner-2.eml | gpg --faked-system-time $DATE_OF_SIGNING --ignore-time-conflict --trust-model always --encrypt --armor --recipient "$NM" | cat outer-1.eml - outer-2.eml >> $FN
+
+gpg --yes --batch --delete-key "$FP"
+
+done

@@ -1,0 +1,29 @@
+MIME-Version: 1.0
+Content-Type: multipart/mixed; boundary="----------=_1580669506-25512-115"
+
+This is a multi-part message in MIME format...
+
+------------=_1580669506-25512-115
+Content-Type: text/plain; charset="utf-8"
+Content-Disposition: inline
+Content-Transfer-Encoding: binary
+
+Hello,
+
+Your signed key is attached to this e-mail.
+
+Please import it with `gpg --import key.asc`.
+
+In case of any problems, don't hesitate to contact me.
+
+Have a nice day!
+
+Kind regards,
+Wiktor
+
+------------=_1580669506-25512-115
+Content-Type: application/pgp-keys
+Content-Disposition: attachment;
+ filename="key.asc"
+Content-Transfer-Encoding: 7bit
+

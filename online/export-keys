@@ -1,0 +1,12 @@
+#!/bin/sh
+
+while read line; do
+FP=${line:6:40}
+
+echo $FP
+
+if [ ! -f $FP.gpg ]; then
+	gpg --export-options export-minimal,export-clean --export "$FP" > $FP.gpg
+fi
+
+done
