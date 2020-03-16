@@ -33,11 +33,13 @@ Then run:
 
 That will export all keys as files with `gpg` extension.
 
-Copy `offline` directory and all `gpg` files to offline computer.
+Copy `offline` directory and all exported `gpg` files to offline computer.
 
 ## Offline computer:
 
 Customize `inner-1.eml` because that's what your recipients will see.
+
+Note: Currently `outer-1.eml` also needs to be modified adjusting `From` header.
 
 **Carefully** read and customize `offline/sign-and-create-emails` as this will
 take the converted list, import keys, sign them, export into an encrypted
