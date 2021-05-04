@@ -68,3 +68,36 @@ possible to use any other sending mechanism.
 
 [GSE]: https://git-send-email.io/
 
+## Transfer file format
+
+The transfer file format is structured in a way that is both human-readable and machine-readable using the following, line-based format:
+
+```
+IDNTF FULL-KEY-FINGERPRINT FULL-USER-ID-TO-SIGN
+```
+
+The fields:
+  * `IDNTF` is a 5 character identifier for the line that must be unique in the file. Only ASCII letters, numbers and characters `-` and `_` are allowed in this field.
+  * `FULL-KEY-FINGERPRINT` is uppercased full version 4 key fingerprint.
+  * `FULL-USER-ID-TO-SIGN` is a complete User ID string that should be signed.
+
+There is a single mandatory space between `IDNTF` and `FULL-KEY-FINGERPRINT` and between `FULL-KEY-FINGERPRINT` and `FULL-USER-ID-TO-SIGN`. Line endings should be a single LF character.
+
+The tool signs only one User ID at a time so if one needs to sign multiple eachUser ID one should be listed on a separate line.
+
+An example:
+
+```
+001_0 7231473218429462833203212349200321874398 John Doe
+001_1 7231473218429462833203212349200321874398 John Doe <john@example.com>
+001_2 7231473218429462833203212349200321874398 John Doe <john@corporation.example>
+001_3 7231473218429462833203212349200321874398 John Doe <johans@distro.invalid>
+001_4 7231473218429462833203212349200321874398 John Doe <johans@social.example>
+002_0 2789357304602357629846520457238491000461 Charlie Anderson <charlie@example.com>
+```
+
+This file will cause the offline signer to sign 5 User IDs of key `7231473218429462833203212349200321874398` and one User ID of key `2789357304602357629846520457238491000461`. Each signature will go into a separate file named using the identifier field (e.g. first one will have `001_0` in the name).
+
+It is customary to structure the identifer format to represent which User IDs belong to the same key. Thus `001_2` represents third User ID of key `001`. This is not strictly necessary and tools should not require that. This is purely for human convenience.
+
+The tools should fail loud as soon as format error has been detected.
