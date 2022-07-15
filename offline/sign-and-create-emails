@@ -15,7 +15,7 @@ ID=${line:0:5}
 FP=${line:6:40}
 NM=${line:47}
 
-gpg --faked-system-time $DATE_OF_SIGNING --quiet --fast-import "$FP".gpg
+gpg --quiet --fast-import "$FP".gpg
 
 LV=0
 
@@ -33,9 +33,9 @@ EM=$(echo $NM | grep -Eo '<[^>]+>')
 echo "To: $EM" > $FN
 echo "Subject: Your signed OpenPGP key ($ID)" >> $FN
 
-gpg --faked-system-time $DATE_OF_SIGNING --ignore-time-conflict --export-filter keep-uid=uid="$NM" --export --armor "$FP" |
+gpg --ignore-time-conflict --export-filter keep-uid=uid="$NM" --export --armor "$FP" |
 cat inner-1.eml - inner-2.eml |
-gpg --faked-system-time $DATE_OF_SIGNING --ignore-time-conflict --trust-model always --encrypt --armor --recipient "$NM" |
+gpg --ignore-time-conflict --trust-model always --encrypt --armor --recipient "$NM" |
 cat outer-1.eml - outer-2.eml >> $FN
 
 gpg --yes --batch --delete-key "$FP"
