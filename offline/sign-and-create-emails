@@ -5,7 +5,7 @@ CERT_POLICY_URL="https://metacode.biz/openpgp/air-signer#policy"
 
 # Customize date of signing so all signatures have the same date
 # also: a privacy measure
-DATE_OF_SIGNING=20200202T020202
+DATE_OF_SIGNING=20220202T020202
 
 while read line; do
 
