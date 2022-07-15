@@ -1,6 +1,6 @@
 #!/bin/bash
 
-# Customize this URL to your own policy or temove --cert-policy-url calls
+# Customize this URL to your own policy or remove --cert-policy-url calls
 CERT_POLICY_URL="https://metacode.biz/openpgp/air-signer#policy"
 
 # Customize date of signing so all signatures have the same date
