@@ -15,7 +15,9 @@ ID=${line:0:5}
 FP=${line:6:40}
 NM=${line:47}
 
-gpg --quiet --fast-import "$FP".gpg
+# TODO: Pay a fee to @vanitasvitae for this idea.
+# See: https://codeberg.org/openpgp/notes/issues/163#issuecomment-1369987
+gpg --quiet --import-options self-sigs-only,import-minimal --fast-import "$FP".gpg
 
 LV=0
 
